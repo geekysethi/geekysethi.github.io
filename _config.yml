@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Deshraj is a Compute Science MS student at Georgia Tech, advised by Dr. Dhruv Batra. 
   He works at the junction of software engineering and AI research. His research interests focus on making AI more accurate, better understand human intentions, tendencies, and contexts.
   He actively maintains the CloudCV Project which aims to make AI research more reproducible.
-baseurl: "http://ashishsethi.me" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://ashishsethi.me" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: geekysethi
 github_username:  geekysethi
