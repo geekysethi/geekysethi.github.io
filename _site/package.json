@@ -1,22 +1,22 @@
 {
-  "name": "deshraj.github.io",
+  "name": "geekysethi.github.io",
   "version": "1.0.0",
-  "description": "Node.js packages",
+  "description": "Personal Website",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DESHRAJ/deshraj.github.io.git"
+    "url": "git+https://github.com/geekysethi/geekysethi.github.io.git"
   },
   "keywords": [
-    "deshraj"
+    "geekysethi"
   ],
-  "author": "Ashish",
+  "author": "Ashish Sethi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DESHRAJ/deshraj.github.io/issues"
+    "url": "https://github.com/geekysethi/geekysethi.github.io/issues"
   },
-  "homepage": "https://github.com/DESHRAJ/deshraj.github.io#readme"
+  "homepage": "https://github.com/geekysethi/geekysethi.github.io#readme"
 }
