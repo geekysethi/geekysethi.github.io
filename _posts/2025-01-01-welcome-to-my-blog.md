@@ -46,9 +46,10 @@ I believe in the power of sharing knowledge and experiences. Through this blog, 
 
 ## Stay Connected
 
-Feel free to reach out if you have any questions or suggestions. You can find me on:
+Feel free to reach out and connect with me on various platforms:
 
 - GitHub: [@geekysethi](https://github.com/geekysethi)
-- Twitter: [@geekysethi](https://twitter.com/geekysethi)
+- Twitter: [@sethiashish20](https://twitter.com/sethiashish20)
+- LinkedIn: [Ashish Sethi](https://www.linkedin.com/in/ashish18024/)
 
 Looking forward to sharing more content soon!

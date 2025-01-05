@@ -43,19 +43,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://ashishsethi.me/" />
+    <meta property="og:url" content="https://geekysethi.github.io" />
     <meta property="og:title" content="Ashish Sethi" />
     <meta property="og:description"
       content="Ashish is a  Computer Vision Engineer, completed his masters from IIIT Delhi. He works at the junction of software engineering and AI research." />
-    <meta property="og:image" content="https://geekysethi.github.io/static/img/ashish.png" />
+    <meta property="og:image" content="static/img/ashish.jpg" />
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:domain" value="ashishsethi.me" />
+    <meta name="twitter:site" content="@sethiashish20">
+    <meta name="twitter:creator" content="@sethiashish20">
     <meta name="twitter:title" value="Ashish Sethi" />
     <meta name="twitter:description"
       value="Ashish is a Computer Vision Engineer, completed his masters from IIIT Delhi. He works at the junction of software engineering and AI research." />
-    <meta name="twitter:image" content="https://geekysethi.github.io/static/img/ashish.png" />
-    <meta name="twitter:url" value="http://ashishsethi.me" />
+    <meta name="twitter:image" content="static/img/ashish.jpg" />
+    <meta name="twitter:url" value="https://geekysethi.github.io" />
     <meta name="twitter:label1" value="Graduate Student" />
     <meta name="twitter:data1" value="IIITD" />
     <meta name="twitter:label2" value="Team Lead" />
@@ -243,17 +244,11 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a target="_blank" href="https://www.linkedin.com/in/ashish18024/">LinkedIn</a></li>
-            <li><a target="_blank" href="https://github.com/geekysethi">Github</a></li>
-            <li><a target="_blank" href="https://twitter.com/geekysethi">Twitter</a></li>
+            <li><a href="#about">About Me</a></li>
             <li><a href="#experience">Experience</a></li>
-            <!-- <li><a href="#publications">Publications</a></li> -->
-            <!-- <li><a href="projects">Projects</a></li> -->
             <li><a href="#education">Education</a></li>
             <li><a href="blog">Blog</a></li>
             <li><a href="/static/docs/ashish_sethi_cv.pdf" target="_blank">CV</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
           </ul>
         </div>
       </div>
@@ -262,13 +257,7 @@
     <div class="container">
       <div id="about"></div>
       <div id="experience"></div>
-      <!-- <div id="projects"></div> -->
       <div id="education"></div>
-
-      <!-- <div id="news"></div>
-      <div id="achievements"></div>
-      <div id="publications"></div> -->
-      <!-- <div id="skills"></div> -->
       <div id="contact"></div>
     </div>
 
@@ -279,15 +268,8 @@
     <script type="text/javascript">
       $(document).ready(function () {
         $("#about").load("templates/about.html");
-        $("#news").load("templates/news.html");
         $("#experience").load("templates/experience.html");
-        $("#publications").load("templates/publications.html");
-        $("#projects").load("templates/projects.html");
-        $("#skills").load("templates/skills.html");
         $("#education").load("templates/education.html");
-        $("#achievements").load("templates/achievements.html");
-        $("blog").load("templates/blog.html");
-
         $("#contact").load("templates/contact.html");
       });
 
