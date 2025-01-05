@@ -48,3 +48,5 @@ log/
 public/
 dist/
 build/
+.sass-cache/*
+.jekyll-cache/*
