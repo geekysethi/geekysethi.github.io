@@ -1,4 +1,143 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-01-05T14:23:17+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ashish Sethi</title><subtitle>Ashish is a Staff Software Engineer - Machine Learning at LightMetrics. He is passionate about building scalable machine learning systems and solving complex problems. He has experience in computer vision and machine learning.</subtitle><entry><title type="html">Welcome to My Blog</title><link href="http://localhost:4000/general/introduction/2025/01/01/welcome-to-my-blog.html" rel="alternate" type="text/html" title="Welcome to My Blog" /><published>2025-01-01T00:00:00+05:30</published><updated>2025-01-01T00:00:00+05:30</updated><id>http://localhost:4000/general/introduction/2025/01/01/welcome-to-my-blog</id><content type="html" xml:base="http://localhost:4000/general/introduction/2025/01/01/welcome-to-my-blog.html"><![CDATA[<h1 id="welcome-to-my-technical-blog">Welcome to My Technical Blog</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-01-05T14:52:52+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ashish Sethi</title><subtitle>Ashish is a Staff Software Engineer - Machine Learning at LightMetrics. He is passionate about building scalable machine learning systems and solving complex problems. He has experience in computer vision and machine learning.</subtitle><entry><title type="html">Gaze Target Estimation via Large-Scale Learned Encoders</title><link href="http://localhost:4000/gaze%20target%20estimation/computer%20vision/machine%20learning/2025/01/04/Gaze-LLE-Gaze-Target-Estimation-via-Large-Scale-Learned-Encoders.html" rel="alternate" type="text/html" title="Gaze Target Estimation via Large-Scale Learned Encoders" /><published>2025-01-04T00:00:00+05:30</published><updated>2025-01-04T00:00:00+05:30</updated><id>http://localhost:4000/gaze%20target%20estimation/computer%20vision/machine%20learning/2025/01/04/Gaze-LLE%20Gaze%20Target%20Estimation%20via%20Large-Scale%20Learned%20Encoders</id><content type="html" xml:base="http://localhost:4000/gaze%20target%20estimation/computer%20vision/machine%20learning/2025/01/04/Gaze-LLE-Gaze-Target-Estimation-via-Large-Scale-Learned-Encoders.html"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
+<ul>
+  <li>In gaze target estimation, we predict where a person is looking in a scene.</li>
+  <li>Predicting a person’s gaze target requires <strong>reasoning both about the person’s appearance and the contents of the scene.</strong></li>
+  <li>Prior works have developed increasingly <strong>complex, handcrafted pipelines</strong> for gaze target estimation that carefully fuse features from separate scene encoders, head encoders, and auxiliary models for signals like depth and pose.</li>
+</ul>
+
+<p><img src="/assets/images/gazelle/image1.png" alt="Figure 1: Examples of gaze estimation" title="Figure 1. The image is showing the various example of how gaze estimation look like" /></p>
+
+<h2 id="motivation">Motivation</h2>
+<p>This paper is motivated by the idea that general-purpose visual features from a foundational model-based encoder can simplify the overall pipeline for this task.</p>
+
+<p><img src="/assets/images/gazelle/image2.png" alt="Figure 2: Prior approaches comparison" title="Figure 2. Figure 1. Prior approaches for gaze target estimation carefully fuse features from a separate head encoders, the Gaze-LLE, uses a single feature representation from a frozen image encoder." /></p>
+<h2 id="introduction">Introduction</h2>
+<ul>
+  <li>Gaze-LLE uses frozen features from the <a href="https://arxiv.org/pdf/2304.07193">DINOv2</a> encoder.</li>
+  <li>The method employs a single feature representation for the scene and applies a person-specific positional prompt to decode gaze with a lightweight module.</li>
+</ul>
+
+<h2 id="model-architecture">Model Architecture</h2>
+<p><img src="/assets/images/gazelle/image3.png" alt="Figure 3: Proposed Model Architecture" title="Figure 3. Proposed Model Architecture" /></p>
+
+<ul>
+  <li>The Gaze-LLE architecture consists of a frozen, large-scale general-purpose scene encoder and a learned Gaze Decoder module.</li>
+  <li>The gaze decoder performs head prompting to condition outputs on a specific person.</li>
+  <li>It updates the feature representation with a small transformer module and predicts a gaze heatmap, as well as whether the target is in-frame.</li>
+</ul>
+
+<h2 id="scene-encoder">Scene Encoder</h2>
+<ul>
+  <li>The authors used the pretrained feature extractor $\mathcal{F}$ which is DINOv2 in this case.</li>
+  <li>From $\mathcal{F}(x_{\text{img}})$, a lower resolution feature map of size $d_{\mathcal{F}} \times H \times W$ is obtained.</li>
+  <li>A linear  layer to project it to smaller dimension of $d_{model}$ yielding feature map of $x_{\mathcal{F}} \in \mathbb{R}^{d_{\text{model}} \times H \times W}$</li>
+</ul>
+
+<h3 id="head-position-embedding">Head Position Embedding</h3>
+
+<ul>
+  <li>The authors incorporated head position after the scene encoder.</li>
+  <li>A downsampled, binarized mask $M$ of size $H \times W$ is created from the given head bounding box $x_{\text{bbox}}$ within the extracted scene feature map.</li>
+  <li>A learned position embedding $p_{\text{head}} \in \mathbb{R}^{d_{\text{model}}}$ is added to the scene tokens containing the head.</li>
+  <li>This $M$ mask helps the model understand the ground truth and find the relationship between the target face and output gaze.</li>
+</ul>
+
+<p>The scene feature map $S$ is then:</p>
+
+<p>\(\large(S = x_{\mathcal{F}} + \left( M \cdot p_{\text{head}} \right))\)</p>
+<h3 id="transformer-layers">Transformer Layers</h3>
+
+<ul>
+  <li>After feature extraction and mask addition, a small learnable transformer module, $T$, is trained.</li>
+  <li>Instead of convolutional layers, the transformer $T$ uses self-attention to process the head-conditioned scene features.</li>
+  <li>The feature map $S$ with the added head position is flattened into a scene token list: $[s_1, s_2, \dots, s_{H\times W}]$, where each $s$ is a pixel-wise token sent to $T$ to determine whether that pixel belongs to the gaze.</li>
+  <li>In the VideoAttentionTarget and ChildPlay benchmark settings, a learnable task token, $t_{\text{in/out}}$, is prepended to the token list.</li>
+</ul>
+
+<p>Our token list is then:</p>
+
+\[\large[\underbrace{t_{\text{in/out}}}_{\text{task token}}
+\underbrace{s_1, s_2, \dots, s_{H \times W}}_{\text{scene tokens}}]\]
+
+<ul>
+  <li>Due to the spatial nature of task, authors added the absolute 2d sinusoidal position embeddings $P$ to the scene features before they are input to $T$ , i.e., $T (S + P)$.</li>
+</ul>
+
+<h2 id="prediction-heads">Prediction Heads</h2>
+
+<ul>
+  <li>From $T(S + P)$, updated scene features $S’$ and the updated task token $t’_{\text{in/out}}$ are obtained.</li>
+  <li>$S’$ is reconstructed into a feature map of size $d_{\mathcal{F}} \times H \times W$.</li>
+  <li>A gaze heatmap decoder, $D_{\text{hm}}$, consisting of two convolutional layers upsamples the feature map to the output size $H_{\text{out}} \times W_{\text{out}}$ and produces a classification score.</li>
+  <li>A 2-layer MLP $D_{\text{in/out}}$ takes $t’_{\text{in/out}}$ and outputs a classification score indicating whether the queried person’s gaze target is in-frame or out-of-frame.</li>
+</ul>
+
+<h2 id="loss-functions">Loss Functions</h2>
+
+<ul>
+  <li>In this method they using two loss functions one for each token prediction and one is for $t’_{in/out}$ .both the loss functions are cross entropy loss.</li>
+</ul>
+
+\[\large{\mathcal{L} = \mathcal{L}_{\text{hm}} + \lambda\mathcal{L}_{\text{in/out}}}\]
+
+<ul>
+  <li>$\mathcal{L}<em>{hm}$ is pixel-wise binary cross entropy loss and $\mathcal{L}</em>{in/out}$ binary cross entropy loss for the $in/out$ prediction task weighted by $λ ∈\mathbb{R}$.</li>
+  <li>The supervisory signal is an $H_{out}×W_{out}$ heatmap constructed by placing a $2D$ Gaussian distribution with $σ = 3$ around each ground truth $(x, y)$ gaze annotation.</li>
+  <li>The backbone F is frozen during training. Our model with a ViT-B backbone has $∼2.8M$ learnable parameters—significantly fewer than all prior works.</li>
+</ul>
+
+<h2 id="results">Results</h2>
+<p><img src="/assets/images/gazelle/table1.png" alt="Table 1: Gaze target estimation results on GazeFollow and VideoAttentionTarget. report the number of learnable parameters for each model, and if auxiliary models are used for inputs: I is image, D is depth, and P is pose, O is objects, and E is eyes." title="Table 1. Gaze target estimation results on GazeFollow and VideoAttentionTarget. report the number of learnable parameters for each model, and if auxiliary models are used for inputs: I is image, D is depth, and P is pose, O is objects, and E is eyes." /></p>
+
+<p><img src="/assets/images/gazelle/table2.png" alt="Table 2: Gaze target estimation results on ChildPlay." title="Table 2. Gaze target estimation results on ChildPlay." /></p>
+
+<p><img src="/assets/images/gazelle/image4.png" alt="Figure 4: Visual results of proposed method" title="Figure 4. Visual results of proposed method" /></p>
+
+<h2 id="ablation-studies--">Ablation Studies -</h2>
+
+<p><img src="/assets/images/gazelle/image5.png" alt="Figure 5: Showing the effect of injecting head information earlier and later" title="Figure 5. Showing the effect of injecting head information earlier and later" /></p>
+
+<p><img src="/assets/images/gazelle/table3.png" alt="Table 3: Shows the design choices across 3 axes: (1) early vs. late head integration, (2) convolutional vs. transformer decoder, and (3) using a head &amp; scene branch (H+S) vs. a scene branch alone (S). Row a is the setting most similar to prior work. Conversely, Author's develop our final Gaze-LLE design from row f." title="Table 3. Shows the design choices across 3 axes: (1) early vs. late head integration, (2) convolutional vs. transformer decoder, and (3) using a head &amp; scene branch (H+S) vs. a scene branch alone (S). Row a is the setting most similar to prior work. Conversely, Author's develop our final Gaze-LLE design from row f." /></p>
+<h3 id="where-should-inject-the-head-position">Where should inject the head position?</h3>
+
+<ul>
+  <li>The head position is crucial for determining gaze.</li>
+  <li>Prior works provide head position as an extra channel to the scene branch (i.e., RGB + head position), requiring the scene encoder to learn its usage during finetuning.</li>
+  <li>Simply concatenating the head position channel <em>after</em> extracting DINOv2 features boosts performance significantly (Table 3: a vs. c).</li>
+</ul>
+
+<h3 id="do-we-need-a-head-branch">Do we need a head branch?</h3>
+
+<ul>
+  <li>Prior works use a separate encoder for head crops, which helps understand gaze direction.</li>
+  <li>The authors hypothesize that DINOv2 already captures gaze direction in its representation.</li>
+  <li>Performance with and without a head branch is nearly the same when using a transformer-based decoder (Table 3: d vs. f).</li>
+</ul>
+
+<h3 id="how-should-we-decode-the-dinov2-features">How should we decode the DINOv2 features?</h3>
+
+<ul>
+  <li>Prior works use convolutional stacks to decode heatmaps.</li>
+  <li>Comparing a 6-layer convolutional stack to a 1-layer transformer with a 2-layer convolutional decoder, the transformer performs better due to its ability to use global information (Table 3: c vs. d).</li>
+</ul>
+
+<h2 id="using-dinov2-in-prior-works">Using DINOv2 in prior Works</h2>
+
+<p>Using DINOv2 directly to prior work does not lead to good results, as we can see in the table below.</p>
+
+<p><img src="/assets/images/gazelle/table4.png" alt="Table 4: Author replaced the scene encoder in 3 existing open source methods with the DINOv2 ViT-B backbone and evaluate on GazeFollow." title="Table 4.Author replaced the scene encoder in 3 existing open source methods with the DINOv2 ViT-B backbone and evaluate on GazeFollow." /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<ul>
+  <li>The proposed method offers a streamlined approach with fewer components to solve a challenging problem while achieving state-of-the-art results.</li>
+  <li>Head prompting innovatively learns the binary mask and the relationship between ground truth and the target face.</li>
+  <li>The authors demonstrated that a foundational model can achieve state-of-the-art results without additional training.</li>
+</ul>
+
+<h2 id="references--">References -</h2>
+<p>Paper - <a href="https://arxiv.org/abs/2412.09586">https://arxiv.org/abs/2412.09586</a>
+DINOv2 - <a href="https://arxiv.org/pdf/2304.07193">https://arxiv.org/pdf/2304.07193</a></p>]]></content><author><name></name></author><category term="gaze target estimation" /><category term="computer vision" /><category term="machine learning" /><category term="gaze estimation" /><category term="large-scale learned encoders" /><category term="DINOv2" /><summary type="html"><![CDATA[A study on gaze target estimation using large-scale learned encoders.]]></summary></entry><entry><title type="html">Welcome to My Blog</title><link href="http://localhost:4000/general/introduction/2025/01/01/welcome-to-my-blog.html" rel="alternate" type="text/html" title="Welcome to My Blog" /><published>2025-01-01T00:00:00+05:30</published><updated>2025-01-01T00:00:00+05:30</updated><id>http://localhost:4000/general/introduction/2025/01/01/welcome-to-my-blog</id><content type="html" xml:base="http://localhost:4000/general/introduction/2025/01/01/welcome-to-my-blog.html"><![CDATA[<h1 id="welcome-to-my-technical-blog">Welcome to My Technical Blog</h1>
 
 <p>I’m excited to start sharing my thoughts, experiences, and insights about technology, machine learning, and software engineering. This blog will be a place where I document my learning journey and share knowledge with the community.</p>
 

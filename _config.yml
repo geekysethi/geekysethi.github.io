@@ -25,6 +25,7 @@ github_username:  geekysethi
 
 # Build settings
 markdown: kramdown
+mathjax: true
 theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
