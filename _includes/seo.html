@@ -1,0 +1,131 @@
+<!-- Advanced SEO Configuration -->
+
+<!-- Preconnect to external domains for faster loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://maxcdn.bootstrapcdn.com">
+
+<!-- DNS Prefetch for external resources -->
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+
+<!-- Page-specific structured data -->
+{% if page.layout == 'post' %}
+<!-- BlogPosting structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title }}",
+  "description": "{% if page.description %}{{ page.description }}{% else %}{{ page.excerpt | strip_html | truncate: 160 }}{% endif %}",
+  "image": "{{ '/static/img/ashish.jpg' | absolute_url }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}",
+    "sameAs": [
+      "https://twitter.com/{{ site.twitter_username }}",
+      "https://github.com/{{ site.github_username }}",
+      "https://www.linkedin.com/in/sethi-ashish/"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "{{ site.title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/static/img/ashish.jpg' | absolute_url }}"
+    }
+  },
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.date | date_to_xmlschema }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  }
+}
+</script>
+{% endif %}
+
+{% if page.url == '/apps/' %}
+<!-- WebApplication structured data for Apps page -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Apps & Tools by Ashish Sethi",
+  "description": "Collection of web applications and tools developed by Ashish Sethi",
+  "itemListElement": [
+    {
+      "@type": "SoftwareApplication",
+      "position": 1,
+      "name": "Prompt Math Fixer",
+      "url": "https://prompt-math-fixer.vercel.app/",
+      "description": "A web application that helps fix and improve mathematical expressions in prompts and text",
+      "applicationCategory": "WebApplication",
+      "operatingSystem": "Any",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.title }}"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "position": 2,
+      "name": "Blog Beacon View",
+      "url": "https://blog-beacon-view.vercel.app/",
+      "description": "A modern blog viewing and management application with intuitive interface",
+      "applicationCategory": "WebApplication",
+      "operatingSystem": "Any",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.title }}"
+      }
+    }
+  ]
+}
+</script>
+{% endif %}
+
+<!-- Breadcrumb structured data -->
+{% unless page.url == '/' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}"
+    }
+    {% if page.url contains '/blog/' %}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "{{ site.url }}/blog/"
+    }
+    {% endif %}
+    {% if page.url contains '/apps/' %}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Apps",
+      "item": "{{ site.url }}/apps/"
+    }
+    {% endif %}
+    {% if page.layout == 'post' %}
+    ,{
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ page.title }}",
+      "item": "{{ page.url | absolute_url }}"
+    }
+    {% endif %}
+  ]
+}
+</script>
+{% endunless %}

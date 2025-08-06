@@ -29,15 +29,36 @@ mathjax: true
 theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-redirect-from
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# Performance optimizations
+incremental: true
+profile: true
+liquid:
+  error_mode: warn
+  strict_filters: false
+  strict_variables: false
+
+# Compression
+sass:
+  style: compressed
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - "*.gemspec"
+  - README.md
+  - LICENSE
+  - CHANGELOG.md
+  - .gitignore
+  - .DS_Store
+
+# Cache settings
+cache_dir: .jekyll-cache

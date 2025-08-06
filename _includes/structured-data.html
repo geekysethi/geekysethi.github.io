@@ -1,0 +1,52 @@
+<!-- Structured Data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.title }}",
+  "url": "{{ site.url }}",
+  "email": "{{ site.email }}",
+  "jobTitle": "Staff Software Engineer - Machine Learning",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "LightMetrics"
+  },
+  "alumniOf": {
+    "@type": "Organization",
+    "name": "IIIT Delhi"
+  },
+  "sameAs": [
+    "https://twitter.com/{{ site.twitter_username }}",
+    "https://github.com/{{ site.github_username }}",
+    "https://www.linkedin.com/in/sethi-ashish/"
+  ],
+  "knowsAbout": [
+    "Machine Learning",
+    "Computer Vision", 
+    "Deep Learning",
+    "Software Engineering",
+    "Neural Networks"
+  ],
+  "description": "{{ site.description }}"
+}
+</script>
+
+<!-- Website structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.title }}",
+  "url": "{{ site.url }}",
+  "description": "{{ site.description }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.title }}"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ site.url }}/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>

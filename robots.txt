@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: http://ashishsethi.me/sitemap.xml
+
+# Allow all crawlers to access main content
+Allow: /blog/
+Allow: /apps/
+Allow: /static/docs/
+Allow: /static/img/
+
+# Disallow crawling of unnecessary files
+Disallow: /_site/
+Disallow: /scripts/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /.jekyll-cache/
+
+# Crawl delay (optional - be respectful to servers)
+Crawl-delay: 1

@@ -1,0 +1,166 @@
+<!-- Optimized Head Section -->
+<head>
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" as="style">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  
+  <!-- CSS with integrity checks and optimization -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.0.0/bootstrap-social.min.css"
+        integrity="sha384-5F2HeYa4e9IYN2YJ9b5HCb2+wJ5ej3lOyc9nfJ0KGn3u1D0T2Fd5F5M5TGN1A1WI" crossorigin="anonymous">
+  
+  <!-- Main CSS file -->
+  <link rel="stylesheet" href="/static/css/main.css">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  
+  <!-- Meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="author" content="{{ site.title }}">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}Ashish Sethi, Machine Learning, Computer Vision, Deep Learning, Software Engineering, AI, LightMetrics, IIIT Delhi{% endif %}">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  
+  <!-- Language and Geo Tags -->
+  <meta name="language" content="English">
+  <meta name="geo.region" content="IN-KA">
+  <meta name="geo.placename" content="Bengaluru, Karnataka, India">
+  
+  <!-- Article specific meta tags for blog posts -->
+  {% if page.layout == 'post' %}
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:modified_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:author" content="{{ site.title }}">
+  <meta property="article:section" content="{% if page.categories %}{{ page.categories | first }}{% else %}Technology{% endif %}">
+  {% if page.tags %}
+  {% for tag in page.tags %}
+  <meta property="article:tag" content="{{ tag }}">
+  {% endfor %}
+  {% endif %}
+  {% endif %}
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}" />
+  <meta property="og:url" content="{{ page.url | absolute_url }}" />
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
+  <meta property="og:image" content="{{ '/static/img/ashish.jpg' | absolute_url }}" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@{{ site.twitter_username }}">
+  <meta name="twitter:creator" content="@{{ site.twitter_username }}">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
+  <meta name="twitter:image" content="{{ '/static/img/ashish.jpg' | absolute_url }}" />
+
+  {% if page.layout == 'post' %}
+  <!-- MathJax Configuration for blog posts -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        processEscapes: true
+      },
+      TeX: {
+        equationNumbers: { autoNumber: "AMS" }
+      }
+    });
+  </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  {% endif %}
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "{% if page.layout == 'post' %}BlogPosting{% else %}Person{% endif %}",
+    {% if page.layout == 'post' %}
+    "headline": "{{ page.title }}",
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.date | date_to_xmlschema }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ site.title }}"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "{{ site.title }}"
+    },
+    "description": "{% if page.description %}{{ page.description }}{% else %}{{ page.excerpt | strip_html | truncate: 160 }}{% endif %}",
+    "url": "{{ page.url | absolute_url }}"
+    {% else %}
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}",
+    "email": "{{ site.email }}",
+    "jobTitle": "Staff Software Engineer - Machine Learning",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "LightMetrics"
+    },
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "IIIT Delhi"
+    },
+    "sameAs": [
+      "https://twitter.com/{{ site.twitter_username }}",
+      "https://github.com/{{ site.github_username }}"
+    ],
+    "knowsAbout": [
+      "Machine Learning",
+      "Computer Vision", 
+      "Deep Learning",
+      "Software Engineering",
+      "Neural Networks"
+    ],
+    "description": "{{ site.description }}"
+    {% endif %}
+  }
+  </script>
+
+  <!-- Preload critical scripts -->
+  <link rel="preload" href="https://code.jquery.com/jquery-2.2.4.min.js" as="script">
+  <link rel="preload" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" as="script">
+  
+  <!-- Scripts with optimization -->
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" 
+          crossorigin="anonymous" defer></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+  
+  <!-- Advanced SEO includes -->
+  {% include seo.html %}
+</head>

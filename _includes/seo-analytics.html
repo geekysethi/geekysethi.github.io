@@ -1,0 +1,183 @@
+<!-- SEO and Performance Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Only run in production
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    return;
+  }
+  
+  // Core Web Vitals tracking
+  function trackWebVitals() {
+    // First Contentful Paint
+    new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.name === 'first-contentful-paint') {
+          gtag('event', 'web_vitals', {
+            event_category: 'Performance',
+            event_label: 'FCP',
+            value: Math.round(entry.startTime),
+            custom_map: {metric_value: entry.startTime}
+          });
+        }
+      }
+    }).observe({entryTypes: ['paint']});
+    
+    // Largest Contentful Paint
+    new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      const lastEntry = entries[entries.length - 1];
+      gtag('event', 'web_vitals', {
+        event_category: 'Performance',
+        event_label: 'LCP',
+        value: Math.round(lastEntry.startTime),
+        custom_map: {metric_value: lastEntry.startTime}
+      });
+    }).observe({entryTypes: ['largest-contentful-paint']});
+    
+    // Cumulative Layout Shift
+    let clsValue = 0;
+    new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (!entry.hadRecentInput) {
+          clsValue += entry.value;
+        }
+      }
+      gtag('event', 'web_vitals', {
+        event_category: 'Performance',
+        event_label: 'CLS',
+        value: Math.round(clsValue * 1000),
+        custom_map: {metric_value: clsValue}
+      });
+    }).observe({entryTypes: ['layout-shift']});
+  }
+  
+  // Track page engagement
+  function trackEngagement() {
+    let startTime = Date.now();
+    let engaged = false;
+    
+    // Track meaningful engagement
+    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+      document.addEventListener(event, function() {
+        if (!engaged) {
+          engaged = true;
+          gtag('event', 'engagement', {
+            event_category: 'User Engagement',
+            event_label: 'First Interaction',
+            value: Math.round(Date.now() - startTime)
+          });
+        }
+      }, {once: true, passive: true});
+    });
+    
+    // Track time on page
+    window.addEventListener('beforeunload', function() {
+      const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+      gtag('event', 'timing_complete', {
+        name: 'time_on_page',
+        value: timeOnPage
+      });
+    });
+  }
+  
+  // Track external link clicks
+  function trackExternalLinks() {
+    document.addEventListener('click', function(event) {
+      const link = event.target.closest('a');
+      if (link && link.hostname !== location.hostname) {
+        gtag('event', 'click', {
+          event_category: 'External Link',
+          event_label: link.href,
+          transport_type: 'beacon'
+        });
+      }
+    });
+  }
+  
+  // Track social media clicks
+  function trackSocialClicks() {
+    document.addEventListener('click', function(event) {
+      const link = event.target.closest('a');
+      if (link) {
+        const href = link.href;
+        let platform = '';
+        
+        if (href.includes('twitter.com') || href.includes('x.com')) platform = 'Twitter';
+        else if (href.includes('linkedin.com')) platform = 'LinkedIn';
+        else if (href.includes('github.com')) platform = 'GitHub';
+        
+        if (platform) {
+          gtag('event', 'social_click', {
+            event_category: 'Social Media',
+            event_label: platform,
+            transport_type: 'beacon'
+          });
+        }
+      }
+    });
+  }
+  
+  // Initialize tracking when page loads
+  window.addEventListener('load', function() {
+    trackWebVitals();
+    trackEngagement();
+    trackExternalLinks();
+    trackSocialClicks();
+  });
+  
+})();
+</script>
+
+<!-- Schema.org Organization markup for better search results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.title }}",
+  "jobTitle": "Staff Software Engineer - Machine Learning",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "LightMetrics",
+    "url": "https://www.lightmetrics.co/"
+  },
+  "alumniOf": [
+    {
+      "@type": "EducationalOrganization",
+      "name": "Indraprastha Institute of Information Technology, Delhi",
+      "alternateName": "IIIT Delhi"
+    }
+  ],
+  "knowsAbout": [
+    {
+      "@type": "Thing",
+      "name": "Machine Learning"
+    },
+    {
+      "@type": "Thing", 
+      "name": "Computer Vision"
+    },
+    {
+      "@type": "Thing",
+      "name": "Deep Learning"
+    },
+    {
+      "@type": "Thing",
+      "name": "Software Engineering"
+    },
+    {
+      "@type": "Thing",
+      "name": "Artificial Intelligence"
+    }
+  ],
+  "url": "{{ site.url }}",
+  "sameAs": [
+    "https://twitter.com/{{ site.twitter_username }}",
+    "https://github.com/{{ site.github_username }}",
+    "https://www.linkedin.com/in/sethi-ashish/"
+  ],
+  "image": "{{ '/static/img/ashish.jpg' | absolute_url }}",
+  "description": "{{ site.description }}"
+}
+</script>

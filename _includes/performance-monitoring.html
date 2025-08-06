@@ -1,0 +1,61 @@
+<!-- Performance Monitoring -->
+<script>
+  // Critical performance metrics
+  (function() {
+    'use strict';
+    
+    // Only run in production
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      return;
+    }
+    
+    // Web Vitals monitoring
+    function reportWebVitals() {
+      // First Contentful Paint
+      new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          if (entry.name === 'first-contentful-paint') {
+            console.log('FCP:', entry.startTime);
+            // Send to analytics if needed
+          }
+        }
+      }).observe({entryTypes: ['paint']});
+      
+      // Largest Contentful Paint
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        console.log('LCP:', lastEntry.startTime);
+        // Send to analytics if needed
+      }).observe({entryTypes: ['largest-contentful-paint']});
+      
+      // Cumulative Layout Shift
+      let clsValue = 0;
+      new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          if (!entry.hadRecentInput) {
+            clsValue += entry.value;
+          }
+        }
+        console.log('CLS:', clsValue);
+        // Send to analytics if needed
+      }).observe({entryTypes: ['layout-shift']});
+    }
+    
+    // Initialize monitoring after page load
+    if (document.readyState === 'complete') {
+      reportWebVitals();
+    } else {
+      window.addEventListener('load', reportWebVitals);
+    }
+    
+    // Connection quality monitoring
+    if ('connection' in navigator) {
+      const connection = navigator.connection;
+      console.log('Connection type:', connection.effectiveType);
+      console.log('Downlink:', connection.downlink);
+      console.log('RTT:', connection.rtt);
+    }
+    
+  })();
+</script>
