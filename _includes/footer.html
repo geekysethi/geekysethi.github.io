@@ -21,22 +21,29 @@
 <!-- SEO Analytics -->
 {% include seo-analytics.html %}
 
+<!-- Service Worker Registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js')
+        .then(function(registration) {
+          console.log('ServiceWorker registered: ', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('ServiceWorker registration failed: ', error);
+        });
+    });
+  }
+</script>
+
 <!-- Performance Monitoring -->
 <script>
-  // Critical performance metrics
   (function() {
     'use strict';
-    
-    // Only run detailed monitoring in production
-    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-      return;
-    }
-    
-    // Basic performance logging
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
     window.addEventListener('load', function() {
       const perfData = performance.getEntriesByType('navigation')[0];
-      console.log(`Page load time: ${perfData.loadEventEnd - perfData.fetchStart}ms`);
+      console.log('Page load: ' + Math.round(perfData.loadEventEnd - perfData.fetchStart) + 'ms');
     });
-    
   })();
 </script>

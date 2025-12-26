@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Ashish is a Staff Software Engineer - Machine Learning at LightMetrics. He is passionate about building scalable machine learning systems
   and solving complex problems. He has experience in computer vision and machine learning.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://ashishsethi.me" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://ashishsethi.me" # the base hostname & protocol for your site
 twitter_username: sethiashish20
 github_username:  geekysethi
 

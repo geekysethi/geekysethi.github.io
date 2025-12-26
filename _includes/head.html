@@ -1,21 +1,31 @@
 <!-- Optimized Head Section -->
 <head>
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-  
-  <!-- Preload critical fonts -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" as="style">
+
+  <!-- Preconnect to external domains for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts with display=swap for better LCP -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
-  
+
   <!-- CSS with integrity checks and optimization -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.0.0/bootstrap-social.min.css"
         integrity="sha384-5F2HeYa4e9IYN2YJ9b5HCb2+wJ5ej3lOyc9nfJ0KGn3u1D0T2Fd5F5M5TGN1A1WI" crossorigin="anonymous">
-  
-  <!-- Main CSS file -->
-  <link rel="stylesheet" href="/static/css/main.css">
+
+  <!-- Critical CSS inlined for faster first paint -->
+  <style>
+    /* Critical above-the-fold styles */
+    html,body{height:100%}body{background:#fff;color:#000;font-weight:300;font-family:'Roboto',sans-serif;padding-top:70px;display:flex;flex-direction:column;min-height:100vh;margin:0}*{box-sizing:border-box}.container{flex:1;display:flex;flex-direction:column}.navbar{will-change:transform}.panel{margin-bottom:0;margin-top:auto}h1,h2,h3,h4{font-weight:300}p{font-size:16px}img{vertical-align:middle!important;max-width:100%;height:auto}.lazy{opacity:0;transition:opacity .3s ease-in-out}.lazy.loaded{opacity:1}
+  </style>
+
+  <!-- Main CSS file - loaded async for non-critical styles -->
+  <link rel="stylesheet" href="/static/css/main.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/static/css/main.css"></noscript>
 
   <!-- Favicons -->
   <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
@@ -151,16 +161,6 @@
   }
   </script>
 
-  <!-- Preload critical scripts -->
-  <link rel="preload" href="https://code.jquery.com/jquery-2.2.4.min.js" as="script">
-  <link rel="preload" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" as="script">
-  
-  <!-- Scripts with optimization -->
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" 
-          crossorigin="anonymous" defer></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
-  
   <!-- Advanced SEO includes -->
   {% include seo.html %}
 </head>
