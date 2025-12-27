@@ -15,6 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: Ashish Sethi
 email: ashish18024@iiitd.ac.in
+email_secondary: sethiaashish1995@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Ashish is a Staff Software Engineer - Machine Learning at LightMetrics. He is passionate about building scalable machine learning systems
   and solving complex problems. He has experience in computer vision and machine learning.
