@@ -1,61 +1,66 @@
+---
+layout: null
+---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>http://ashishsethi.me/</loc>
-    <lastmod>2025-01-06</lastmod>
+    <loc>{{ site.url }}/</loc>
+    <lastmod>{{ site.time | date: '%Y-%m-%d' }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
+
   <!-- Main sections -->
   <url>
-    <loc>http://ashishsethi.me/#about</loc>
-    <lastmod>2025-01-06</lastmod>
+    <loc>{{ site.url }}/#about</loc>
+    <lastmod>{{ site.time | date: '%Y-%m-%d' }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>http://ashishsethi.me/#experience</loc>
-    <lastmod>2025-01-06</lastmod>
+    <loc>{{ site.url }}/#experience</loc>
+    <lastmod>{{ site.time | date: '%Y-%m-%d' }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>http://ashishsethi.me/#education</loc>
-    <lastmod>2025-01-06</lastmod>
+    <loc>{{ site.url }}/#education</loc>
+    <lastmod>{{ site.time | date: '%Y-%m-%d' }}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <!-- Blog section -->
   <url>
-    <loc>http://ashishsethi.me/blog/</loc>
-    <lastmod>2025-01-06</lastmod>
+    <loc>{{ site.url }}/blog/</loc>
+    <lastmod>{{ site.time | date: '%Y-%m-%d' }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  
+
   <!-- Apps section -->
   <url>
-    <loc>http://ashishsethi.me/apps/</loc>
-    <lastmod>2025-01-06</lastmod>
+    <loc>{{ site.url }}/apps/</loc>
+    <lastmod>{{ site.time | date: '%Y-%m-%d' }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Blog posts -->
+
+  <!-- Blog posts (dynamically generated) -->
+  {% for post in site.posts %}
   <url>
-    <loc>http://ashishsethi.me/gaze%20target%20estimation/computer%20vision/machine%20learning/2025/01/04/Gaze-LLE-Gaze-Target-Estimation-via-Large-Scale-Learned-Encoders.html</loc>
-    <lastmod>2025-01-04</lastmod>
-    <changefreq>never</changefreq>
+    <loc>{{ post.url | absolute_url }}</loc>
+    <lastmod>{{ post.date | date: '%Y-%m-%d' }}</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+  {% endfor %}
+
   <!-- CV -->
   <url>
-    <loc>http://ashishsethi.me/static/docs/ashish_sethi_cv.pdf</loc>
-    <lastmod>2025-01-06</lastmod>
+    <loc>{{ site.url }}/static/docs/ashish_sethi_cv.pdf</loc>
+    <lastmod>{{ site.time | date: '%Y-%m-%d' }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

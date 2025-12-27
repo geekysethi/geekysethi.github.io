@@ -32,6 +32,9 @@ plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
 
+# SEO-friendly permalink structure
+permalink: /blog/:year/:month/:day/:title/
+
 # Performance optimizations
 incremental: true
 profile: true

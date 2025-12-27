@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: http://ashishsethi.me/sitemap.xml
+Sitemap: https://ashishsethi.me/sitemap.xml
 
 # Allow all crawlers to access main content
 Allow: /blog/

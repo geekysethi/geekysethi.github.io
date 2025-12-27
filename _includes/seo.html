@@ -19,7 +19,12 @@
   "@type": "BlogPosting",
   "headline": "{{ page.title }}",
   "description": "{% if page.description %}{{ page.description }}{% else %}{{ page.excerpt | strip_html | truncate: 160 }}{% endif %}",
-  "image": "{{ '/static/img/ashish.jpg' | absolute_url }}",
+  "image": {
+    "@type": "ImageObject",
+    "url": "{% if page.featured_image %}{{ page.featured_image | absolute_url }}{% else %}{{ '/static/img/ashish.jpg' | absolute_url }}{% endif %}",
+    "width": 1200,
+    "height": 630
+  },
   "author": {
     "@type": "Person",
     "name": "{{ site.title }}",
@@ -43,7 +48,8 @@
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page.url | absolute_url }}"
-  }
+  },
+  "keywords": "{% if page.tags %}{{ page.tags | join: ', ' }}{% endif %}"
 }
 </script>
 {% endif %}
