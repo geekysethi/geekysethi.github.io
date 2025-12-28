@@ -44,6 +44,16 @@ body {
   min-height: 100vh;
 }
 
+/* Fix anchor links being hidden behind fixed header */
+#about, #experience, #education, #contact {
+  scroll-margin-top: 80px;
+}
+
+/* Add top padding to first section so it's not hidden behind header */
+#about {
+  padding-top: 20px;
+}
+
 /* Typography */
 h1, h2, h3, h4 {
   font-weight: 300;
@@ -206,16 +216,20 @@ body {
   body {
     padding-top: 60px;
   }
-  
+
+  #about, #experience, #education, #contact {
+    scroll-margin-top: 70px;
+  }
+
   .content {
     margin-left: 15px;
     font-size: 14px;
   }
-  
+
   .title_bar_text {
     margin-left: 10px;
   }
-  
+
   /* Mobile performance optimizations */
   .blinking-cursor {
     animation-duration: 2s; /* Slower animation on mobile */
