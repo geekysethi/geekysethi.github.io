@@ -4,19 +4,33 @@ title: Blog
 description: "Blog posts by Ashish Sethi on Machine Learning, Computer Vision, and Software Engineering"
 ---
 
-<div class="blog-index">
-  <div class="blog-header">
-    <h1 class="blog-title">Blog Posts</h1>
+<section class="section wrap">
+  <div class="sec-head" data-reveal>
+    <span class="sec-num">§</span>
+    <h2 class="sec-title">Writing</h2>
+    <span class="sec-line"></span>
   </div>
-  
-  <ul class="post-list">
-  {% for post in site.posts %}
-    <li class="post-item">
-      <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
-      {% if post.description %}
-      <p class="post-description">{{ post.description }}</p>
-      {% endif %}
-    </li>
-  {% endfor %}
-  </ul>
-</div>
+
+  <div class="writing">
+    {% for post in site.posts %}
+    <a class="write-row" href="{{ post.url | relative_url }}" data-reveal>
+      <time class="write-date">{{ post.date | date: "%b %Y" }}</time>
+      <div class="write-main">
+        <h3 class="write-title">{{ post.title }}</h3>
+        {% if post.description %}
+        <p class="write-excerpt">{{ post.description }}</p>
+        {% endif %}
+        {% if post.tags %}
+        <div class="write-cats">
+          {% for tag in post.tags limit:4 %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <span class="write-arrow">→</span>
+    </a>
+    {% endfor %}
+  </div>
+  <p class="writing-note">// Notes on vision, large-scale ML and clean systems.</p>
+</section>

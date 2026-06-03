@@ -1,0 +1,140 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts: Newsreader + Spectral + JetBrains Mono (editorial system) -->
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Editorial Stylesheet -->
+  <link rel="stylesheet" href="/static/css/editorial.css">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#f7f4ee">
+
+  <!-- SEO Meta Tags -->
+  <meta name="author" content="{{ site.title }}">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}Ashish Sethi, Machine Learning, Computer Vision, Deep Learning, Software Engineering, AI, LightMetrics, IIIT Delhi{% endif %}">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+  <!-- Language and Geo Tags -->
+  <meta name="language" content="English">
+  <meta name="geo.region" content="IN-KA">
+  <meta name="geo.placename" content="Bengaluru, Karnataka, India">
+
+  <!-- Article specific meta tags for blog posts -->
+  {% if page.layout == 'post' %}
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:modified_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:author" content="{{ site.title }}">
+  <meta property="article:section" content="{% if page.categories %}{{ page.categories | first }}{% else %}Technology{% endif %}">
+  {% if page.tags %}
+  {% for tag in page.tags %}
+  <meta property="article:tag" content="{{ tag }}">
+  {% endfor %}
+  {% endif %}
+  {% endif %}
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:image" content="{% if page.featured_image %}{{ page.featured_image | absolute_url }}{% else %}{{ '/static/img/ashish.jpg' | absolute_url }}{% endif %}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@{{ site.twitter_username }}">
+  <meta name="twitter:creator" content="@{{ site.twitter_username }}">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="twitter:image" content="{% if page.featured_image %}{{ page.featured_image | absolute_url }}{% else %}{{ '/static/img/ashish.jpg' | absolute_url }}{% endif %}">
+  <meta name="twitter:image:alt" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+
+  {% if page.layout == 'post' %}
+  <!-- MathJax Configuration for blog posts -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        processEscapes: true
+      },
+      TeX: {
+        equationNumbers: { autoNumber: "AMS" }
+      }
+    });
+  </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  {% endif %}
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "{% if page.layout == 'post' %}BlogPosting{% else %}Person{% endif %}",
+    {% if page.layout == 'post' %}
+    "headline": "{{ page.title }}",
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.date | date_to_xmlschema }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ site.title }}"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "{{ site.title }}"
+    },
+    "description": "{% if page.description %}{{ page.description }}{% else %}{{ page.excerpt | strip_html | truncate: 160 }}{% endif %}",
+    "url": "{{ page.url | absolute_url }}"
+    {% else %}
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}",
+    "email": "{{ site.email }}",
+    "jobTitle": "Staff Software Engineer - Machine Learning",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "LightMetrics"
+    },
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "IIIT Delhi"
+    },
+    "sameAs": [
+      "https://twitter.com/{{ site.twitter_username }}",
+      "https://github.com/{{ site.github_username }}"
+    ],
+    "knowsAbout": [
+      "Machine Learning",
+      "Computer Vision",
+      "Deep Learning",
+      "Software Engineering",
+      "Neural Networks"
+    ],
+    "description": "{{ site.description }}"
+    {% endif %}
+  }
+  </script>
+</head>

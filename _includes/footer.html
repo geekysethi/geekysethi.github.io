@@ -1,9 +1,22 @@
-<!-- Consistent Footer Component -->
-<div class="panel">
-  <div class="panel-footer" align="center">&#9400; Ashish Sethi, 2025</div>
-</div>
+<footer class="site-footer">
+  <div class="footer-container">
+    <p class="footer-email">
+      <a href="mailto:sethiaashish1995@gmail.com">sethiaashish1995@gmail.com</a>
+    </p>
 
-<!-- Main JavaScript with optimizations -->
+    <div class="footer-social">
+      <a href="https://github.com/geekysethi" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="footer-divider">/</span>
+      <a href="https://www.linkedin.com/in/sethi-ashish/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <span class="footer-divider">/</span>
+      <a href="https://twitter.com/sethiashish20" target="_blank" rel="noopener noreferrer">Twitter</a>
+    </div>
+
+    <p class="footer-copyright">&copy; {{ site.time | date: '%Y' }} Ashish Sethi</p>
+  </div>
+</footer>
+
+<!-- Main JavaScript -->
 <script src="/static/js/main.js" defer></script>
 
 <!-- Google Analytics -->
@@ -13,37 +26,4 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'UA-168947395-1');
-</script>
-
-<!-- GitHub Buttons -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-<!-- SEO Analytics -->
-{% include seo-analytics.html %}
-
-<!-- Service Worker Registration -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js')
-        .then(function(registration) {
-          console.log('ServiceWorker registered: ', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('ServiceWorker registration failed: ', error);
-        });
-    });
-  }
-</script>
-
-<!-- Performance Monitoring -->
-<script>
-  (function() {
-    'use strict';
-    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
-    window.addEventListener('load', function() {
-      const perfData = performance.getEntriesByType('navigation')[0];
-      console.log('Page load: ' + Math.round(perfData.loadEventEnd - perfData.fetchStart) + 'ms');
-    });
-  })();
 </script>
