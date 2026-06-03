@@ -92,8 +92,6 @@ img { display: block; max-width: 100%; }
   color: var(--ink-3);
 }
 
-.accent { color: var(--accent); }
-
 /* ----- Layout shell ----------------------------------------------------- */
 .wrap {
   width: 100%;
@@ -101,8 +99,6 @@ img { display: block; max-width: 100%; }
   margin: 0 auto;
   padding-inline: var(--gutter);
 }
-
-.rule { height: 1px; background: var(--line); border: 0; }
 
 /* ----- Top bar ---------------------------------------------------------- */
 .topbar {
@@ -120,8 +116,9 @@ img { display: block; max-width: 100%; }
   justify-content: space-between;
   height: 88px;
 }
-.brand { position: relative; top: 0.5rem; }
 .brand {
+  position: relative;
+  top: 0.5rem;
   font-family: var(--serif);
   font-weight: 500;
   font-size: 1.55rem;
@@ -132,7 +129,6 @@ img { display: block; max-width: 100%; }
   align-items: baseline;
   gap: 0.5ch;
 }
-.brand .dot { color: var(--accent); }
 .topnav { display: flex; gap: clamp(1.1rem, 2.4vw, 2.2rem); }
 .topnav a {
   font-family: var(--mono);
@@ -189,7 +185,6 @@ img { display: block; max-width: 100%; }
 }
 .hero-name .ln { display: block; }
 .hero-name .ln-2 { font-style: italic; font-weight: 300; padding-left: 0.04em; }
-.hero-name .amp { color: var(--accent); }
 
 .hero-lead {
   font-size: clamp(1.15rem, 1.7vw, 1.45rem);
@@ -590,7 +585,6 @@ img { display: block; max-width: 100%; }
   .plate { max-width: 360px; }
   .work-row { grid-template-columns: 2.6rem 1fr 2rem; }
   .work-tags { margin-top: 0.1rem; }
-  .work-row .tl-kind { display: none; }
 }
 @media (max-width: 620px) {
   .topnav { gap: 1rem; }
